@@ -6,8 +6,6 @@ from dotenv import dotenv_values
 config = dotenv_values(".env")
 
 
-
-# Initialize OpenAI LLM
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.5-pro",
     google_api_key = config["GEMINI_API_KEY"],
