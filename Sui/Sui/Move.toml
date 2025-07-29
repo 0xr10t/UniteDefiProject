@@ -1,0 +1,7 @@
+[package]
+name = "fusion_escrow"
+version = "0.0.1"
+authors = ["UniteDeFi Hackathon Team"]
+
+[addresses]
+fusion_escrow = "0x0" 
