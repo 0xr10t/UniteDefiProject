@@ -32,19 +32,10 @@ msg  = chain.invoke(
     }
 )
 
+# sources to analyze: twitter, reddit, polymarket, finshots, finimize
+# https://finimize.com/topics/etfs
+# langchain, puppeteer+bueifulsop4, chromadb, setiment analysis: https://huggingface.co/ProsusAI/finbert, 
+# price api, coingekko or binance maybe, etherscan accha hai for on chain data to feed the agent,
+
 print(msg.content)
 
-# # Define a simple prompt for the agent
-# template = """
-# You are an AI assistant with an expertise in blockchain.
-# Answer the following question: {question}
-# """
-
-# # Set up the prompt and LLM chain
-# prompt = PromptTemplate(template=template, input_variables=["question"])
-# chain = LLMChain(prompt=prompt, llm=llm)
-
-# # Example query
-# query = "What is the impact of AI in blockchain industry?"
-# response = chain.run(question=query)
-# print(f"Agent Response: {response}")
