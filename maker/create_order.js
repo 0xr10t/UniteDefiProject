@@ -19,8 +19,8 @@ const sdk = new SDK({
 const params = {
   srcChainId: 11155111, //sepoliachainID
   dstChainId: 728126428, //tronChainID
-  srcTokenAddress: usdc,
-  dstTokenAddress: usdctron,
+  srcTokenAddress: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238", //usdcSepolia
+  dstTokenAddress: "TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf", //usdcTron
   amount: usdcamount,
   enableEstimate: true,
   walletAddress: makerAddress,
