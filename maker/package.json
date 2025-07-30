@@ -1,0 +1,16 @@
+{
+  "name": "maker",
+  "version": "1.0.0",
+  "main": "order.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@1inch/cross-chain-sdk": "^0.2.1-rc.62",
+    "dotenv": "^17.2.1"
+  }
+}
