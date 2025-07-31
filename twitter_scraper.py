@@ -1,76 +1,208 @@
-import asyncio
-from twikit import Client
+from twikit import Client, Tweet
+import time
+import json
 
 USERNAME = 'tigpig0707'
 EMAIL = 'tigpig0707@gmail.com'
 PASSWORD = 'tiggyisapiggy'
 
+USERNAMES = ['tigpig0707', ]
+EMAILS = ['tigpig0707@gmail.com',]
+PASSWORDS = ['tiggyisapiggy', ]
+
 ACCOUNTS_TO_TRACK = [
-    "@cz_binance", "@VitalikButerin", "@aantonop", "@CoinDesk", "@MessariCrypto", "@laurashin",
-    "@wun", "@RaoulPalReal", "@Nansen_ai", "@Coinbase", "@WatcherGuru", "@CryptoWendyO",
-    "@scottmelker", "@APompliano", "@TheBlock__", "@Cointelegraph", "@balajis", "@brian_armstrong",
-    "@cameron", "@tyler", "@michael_saylor", "@nic__carter", "@el33th4xor", "@krakenfx", "@glassnode",
-    "@samczsun", "@ChrisBlec", "@zachxbt", "@lawmaster", "@intocryptoverse", "@0xfoobar",
-    "@ERCOTX", "@sassal0x", "@chainlink", "@chainlinkgod",
-    "@SECGov", "@CFTC", "@federalreserve", "@eigenlayer", "@WorldEconomicForum", "@GaryGensler"
+    "cz_binance",          # Binance updates, regulatory news
+    "VitalikButerin",     # Ethereum development insights
+    "aantonop",           # Bitcoin education, blockchain fundamentals
+    "CoinDesk",           # Crypto news and analysis
+    "MessariCrypto",      # On-chain data, market research
+    "laurashin",          # Crypto journalism, in-depth interviews
+    "wun",                # Bitcoin price analysis
+    "RaoulPalReal",       # Macro trends impacting crypto
+    "Nansen_ai",          # On-chain analytics, sentiment
+    "Coinbase",           # Exchange listings, regulatory updates
+    "WatcherGuru",        # Real-time crypto news
+    "CryptoWendyO",       # Trading insights, market trends
+    "scottmelker",        # Trading and market commentary
+    "APompliano",         # Bitcoin advocacy, market updates
+    "TheBlock__",         # Crypto news, regulatory updates
+    "Cointelegraph",      # Breaking crypto news
+    "balajis",            # Decentralized tech, market insights
+    "brian_armstrong",    # Coinbase CEO, regulatory news
+    "michael_saylor",     # Bitcoin institutional adoption
+    "nic__carter",        # Bitcoin analysis, macro insights
+    "samczsun",           # Ethereum security, smart contract audits
+    "ChrisBlec",          # DeFi and regulatory commentary
+    "zachxbt",            # Crypto scam investigations
+    "sassal0x",           # Ethereum ecosystem updates
+    "chainlinkgod",       # Chainlink and DeFi insights
+    "SECGov",             # US regulatory updates
+    "CFTC",               # US commodity regulation
+    "federalreserve",     # Macroeconomic policy updates
+    "eigenlayer"          # Ethereum restaking developments
 ]
 
 CASHTAGS_TO_TRACK = [
-    "$BTC", "$ETH", "$USDT", "$BNB", "$SOL", "$XRP", "$USDC", "$ADA", "$DOGE", "$TRX",
-    "$AVAX", "$SHIB", "$LINK", "$DOT", "$MATIC", "$LTC", "$BCH", "$NEAR", "$UNI",
-    "$RUNE", "$LDO", "$GMX", "$JTO", "$PYTH", "$TIA", "$BLAST",
-    "$STETH", "$USDE", "$AI", "$RWA", "$OP"
+    "$BTC",    # Bitcoin
+    "$ETH",    # Ethereum
+    "$USDT",   # Tether
+    "$BNB",    # Binance Coin
+    "$SOL",    # Solana
+    "$XRP",    # XRP
+    "$USDC",   # USD Coin
+    "$ADA",    # Cardano
+    "$LDO",    # Lido (Ethereum staking)
+    "$LINK",   # Chainlink
+    "$MATIC",  # Polygon
+    "$STETH"   # Lido Staked ETH
 ]
 
 HASHTAGS_TO_TRACK = [
-    "#Ethereum", "#ETH", "#Bitcoin", "#BTC", "#Crypto", "#Cryptocurrency", "#Blockchain", "#DeFi",
-    "#NFT", "#Web3", "#CryptoNews", "#EthereumNews", "#BitcoinNews", "#CryptocurrencyNews",
-    "#CryptoTrading", "#EthereumTrading", "#BitcoinTrading", "#FOMC", "#CryptoRegulation",
-    "#EthereumETF", "#BitcoinETF", "#Layer2", "#BitcoinHalving",
-    "#CryptoMarket", "#Airdrop", "#Binance", "#Coinbase", "#CryptoCommunity", "#CryptoAnalysis",
-    "#BlockchainTechnology", "#CryptoInvestor", "#SmartContracts", "#EIP1559",
-    "#Solana", "#Rollups", "#Restaking", "#ModularBlockchain", "#RealWorldAssets", "#DePIN",
-    "#ETHRestaking", "#CryptoHack", "#CryptoLiquidations",
-    "#PectraUpgrade", "#StablecoinRegulation", "#CryptoETFs", "#AIBlockchain", "#GeopoliticalCrypto"
+    "#Ethereum",
+    "#ETH",
+    "#Bitcoin",
+    "#BTC",
+    "#Crypto",
+    "#Blockchain",
+    "#DeFi",
+    "#NFT",
+    "#Web3",
+    "#CryptoNews",
+    "#EthereumNews",
+    "#BitcoinNews",
+    "#CryptoTrading",
+    "#FOMC",
+    "#CryptoRegulation",
+    "#EthereumETF",
+    "#BitcoinETF",
+    "#Dencun",
+    "#Layer2",
+    "#BitcoinHalving",
+    "#CryptoMarket",
+    "#Airdrop",
+    "#Binance",
+    "#Coinbase",
+    "#CryptoAnalysis",
+    "#SmartContracts",
+    "#EthereumStaking",
+    "#EIP1559",
+    "#PectraUpgrade",
+    "#StablecoinRegulation",
+    "#CryptoETFs"
 ]
 
 SEARCH_TERMS = [
-    "FOMC meeting 2025 crypto impact", "SEC crypto regulation ETH", "SEC crypto regulation BTC",
-    "Ethereum ETF", "Bitcoin ETF", "EIP-1559",
-    "Layer 2 Ethereum", "CPI inflation ETH 2025", "CPI inflation BTC 2025", "Fed rate hike Ethereum 2025",
-    "Fed rate hike Bitcoin 2025", "crypto regulation USA EU India 2025", "Ethereum staking",
-    "DeFi Ethereum", "Web3 Ethereum", "Binance listing ETH", "Binance listing BTC", "Coinbase listing ETH",
-    "Coinbase listing BTC", "crypto whale ETH", "crypto whale BTC", "altcoin season",
-    "Trump tariffs crypto", "US debt ceiling ETH", "US debt ceiling BTC", "Ethereum scalability",
-    "Bitcoin mining", "crypto hack ETH", "crypto hack BTC", "blockchain technology",
-    "Ethereum restaking Eigenlayer", "crypto liquidation alert", "crypto funding rate",
-    "Solana downtime", "rollup upgrade", "Eigenlayer slashing", "real world assets DeFi",
-    "ETH reorg", "Solana congestion",
-    "Pectra upgrade Ethereum May 2025", "Trump crypto executive order January 2025",
-    "Stablecoin bills STABLE Act GENIUS Act 2025", "Fed interest rate decision 2025",
-    "AI crypto integration 2025", "Geopolitical events tariffs crypto 2025",
-    "Ethereum sharding rollout 2025", "Ethereum post-Merge developments 2025"
+    "FOMC Ethereum",
+    "FOMC Bitcoin",
+    "SEC crypto regulation ETH",
+    "SEC crypto regulation BTC",
+    "Ethereum ETF",
+    "Bitcoin ETF",
+    "Dencun upgrade",
+    "EIP-1559",
+    "Layer 2 Ethereum",
+    "CPI inflation ETH",
+    "CPI inflation BTC",
+    "Fed rate hike Ethereum",
+    "Fed rate hike Bitcoin",
+    "crypto regulation",
+    "Ethereum staking",
+    "DeFi Ethereum",
+    "Web3 Ethereum",
+    "Binance listing ETH",
+    "Binance listing BTC",
+    "Coinbase listing ETH",
+    "Coinbase listing BTC",
+    "crypto whale ETH",
+    "crypto whale BTC",
+    "altcoin season",
+    "Trump tariffs crypto",
+    "US debt ceiling ETH",
+    "US debt ceiling BTC",
+    "Ethereum scalability",
+    "Bitcoin mining",
+    "crypto hack ETH",
+    "crypto hack BTC",
+    "blockchain technology",
+    "Ethereum restaking Eigenlayer",
+    "Pectra upgrade Ethereum",
+    "Stablecoin regulation",
+    "AI crypto integration",
+    "Geopolitical events crypto"
 ]
+
+print(len(ACCOUNTS_TO_TRACK+CASHTAGS_TO_TRACK+HASHTAGS_TO_TRACK+SEARCH_TERMS))
 
 # Initialize client
 client = Client('en-US')
 
-async def main():
-    await client.login(
-        auth_info_1=USERNAME,
-        auth_info_2=EMAIL,
-        password=PASSWORD,
-        cookies_file='cookies.json'
-    )
+async def scrape_twitter():
+    search_results = []
     
-    user = await client.get_user_by_screen_name("chainlink")
+    accounts_to_track_index = 0
+    others_index = 0
+    account_no = 0
+    
+    while True:
+    
+        try:
 
-    tweets = await client.get_user_tweets(user_id=user.id, tweet_type="Tweets")
+            await client.login(
+                auth_info_1=USERNAMES[account_no],
+                auth_info_2=EMAILS[account_no],
+                password=PASSWORDS[account_no],
+                cookies_file='cookies.json'
+            )
+            
+            for user in ACCOUNTS_TO_TRACK[accounts_to_track_index:]:
+                user = await client.get_user_by_screen_name("chainlink")
+                
+                tweets = await client.get_user_tweets(user_id=user.id, tweet_type="Tweets", count=2)
+                
+                search_results.extend(tweets)
+                accounts_to_track_index +=1
+                print(accounts_to_track_index)
 
-    for tweet in tweets:
-        # print(tweet.user.name)
-        print(tweet.full_text)
-        # print(tweet.created_at)
-        print("--------------------------------")
+            for keyword in (ACCOUNTS_TO_TRACK+HASHTAGS_TO_TRACK+SEARCH_TERMS)[others_index:]:    
 
-asyncio.run(main())
+                tweets = await client.search_tweet(keyword, product="Top", count=2)
+
+                search_results.extend(tweets)
+                others_index+=1
+                
+            
+                
+            return search_results
+        
+
+                
+        except Exception as e:
+            print("chudgya")
+            await client.logout()
+            time.sleep(5)
+            if account_no == len(USERNAMES)-1:
+                return e
+            account_no+=1
+            print(e)
+            
+
+    
+def format_tweets(search_resuts: list[Tweet]):
+    ret = {"tweets": []}
+    for tweet in search_resuts:
+        ret["tweets"].append(
+            {
+                "from" : tweet.user.name,
+                "time": tweet.created_at,
+                "body": tweet.full_text,
+                # "lang": tweet.lang,
+                "likes_count": tweet.favorite_count,
+                "view_count": tweet.view_count,
+                "view_count": tweet.community_note                
+            }
+        )
+    return ret
+
+def save_tweets(dict_of_tweets):
+    with open("data.json", 'r') as f:
+        f.write(json.dumps(dict_of_tweets))
