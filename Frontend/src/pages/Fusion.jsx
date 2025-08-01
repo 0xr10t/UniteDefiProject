@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 function Fusion() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0d0220] to-[#19002a] text-white px-6 py-8 relative overflow-hidden">
-      <Navbar onHelpClick={() => {}} />
 
       <div className="mt-24 text-center">
         <h1 className="text-5xl font-bold">FUSION +</h1>

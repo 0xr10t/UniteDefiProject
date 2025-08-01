@@ -18,7 +18,7 @@ function LimitOrders() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1f002b] to-[#000010] text-white">
-      <Navbar />
+      
       <div className="px-6 py-10 max-w-5xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-center">Limit Orders</h1>
 

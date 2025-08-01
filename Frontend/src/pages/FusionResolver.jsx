@@ -4,12 +4,12 @@ import Footer from '../components/Footer'
 function Resolver() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#0f051d] to-[#1a0b30] text-white font-sans">
-      <Navbar />
+      
       <main className="flex-grow px-6 sm:px-10 md:px-16 lg:px-32 py-10">
         <h1 className="text-4xl font-bold text-center mb-10">Resolver</h1>
 
-        <div className="bg-[#15032a] rounded-xl p-6 border border-[#32214b]">
-          <h2 className="text-2xl font-semibold text-center mb-6">Available Orders</h2>
+        <div className=" bg-black bg-opacity-20 border border-purple-500 rounded">
+          <h2 className="text-2xl font-semibold text-center mb-6 py-2 bg-purple-800 bg-opacity-40 text-white">Available Orders</h2>
           <div className="overflow-x-auto">
             <table className="min-w-full table-auto text-sm text-left">
               <thead className="text-[#aaa] border-b border-[#32214b]">
@@ -44,7 +44,7 @@ function Resolver() {
           </div>
         </div>
 
-        <div className="mt-8 bg-[#15032a] border border-[#32214b] rounded-lg px-6 py-4 text-center text-white">
+        <div className="mt-8  bg-black bg-opacity-20 border border-purple-500 rounded px-6 py-4 text-center text-white">
           <span className="font-medium text-sm">AI BOX :</span>
           <span className="ml-2 text-sm">Base or Mantle Recommended — Avg Return: <span className="text-indigo-300 font-semibold">3060 USDC</span></span>
         </div>

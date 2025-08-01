@@ -19,4 +19,4 @@ function HelpOverlay({ open, onClose }) {
   );
 }
 
-export default HelpOverlay ;
+export default HelpOverlay;
