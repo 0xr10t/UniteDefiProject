@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Spline from "@splinetool/react-spline";
 
 function FusionMaker() {
   const [formData, setFormData] = useState({
@@ -30,15 +30,15 @@ function FusionMaker() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-[#0d0220] to-[#19002a] text-white overflow-hidden">
-      <div className="absolute top-0 left-0 w-full z-50">
-        
+    <div className="relative min-h-screen  bg-gradient-to-b from-[#0d0220] to-[#19002a] text-white overflow-hidden">
+      <div className="absolute inset-0 z-0 transform scale-[1.5] -translate-y-32 opacity-20 pointer-events-none">
+        <Spline scene="https://prod.spline.design/k48GCVc-BEkzA-pP/scene.splinecode" />
       </div>
 
-      <div className="pt-28 px-6 pb-20 max-w-7xl mx-auto">
+      <div className="pt-28 px-6 pb-20 z-10 max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-12">Create Cross Chain Fusion+ Order</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 animate-bounce-once lg:grid-cols-3 gap-6">
           
           <div className="lg:col-span-2 bg-black bg-opacity-20 border border-purple-500 rounded ">
             <h2 className="text-xl font-semibold mb-4 py-2 bg-purple-800 px-10 bg-opacity-40 text-white">Create Order</h2>
@@ -146,7 +146,7 @@ function FusionMaker() {
           </div>
         </div>
 
-        <div className=" bg-black bg-opacity-20 border border-purple-500 rounded mt-10">
+        <div className=" bg-black bg-opacity-20 animate-bounce-once border border-purple-500 rounded mt-10">
           <h2 className="text-xl text-left pl-4 mb-6 py-2 bg-purple-800 bg-opacity-40 text-white">My Orders</h2>
           <table className="w-full text-sm text-left py-4 border-collapse">
             <thead className="text-gray-300 border-b border-purple-400/10">

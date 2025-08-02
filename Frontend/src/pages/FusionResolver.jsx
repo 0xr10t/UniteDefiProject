@@ -1,10 +1,13 @@
-import Navbar from '../components/Navbar'
+import React from 'react'
 import Footer from '../components/Footer'
+import Spline from '@splinetool/react-spline'
 
 function Resolver() {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#0f051d] to-[#1a0b30] text-white font-sans">
-      
+    <div className="min-h-screen flex flex-col pt-20 bg-gradient-to-br from-[#0f051d] to-[#1a0b30] text-white font-sans">
+      <div className="absolute inset-0 z-0 transform scale-[1.5] -translate-y-32 opacity-10 pointer-events-none">
+        <Spline scene="https://prod.spline.design/k48GCVc-BEkzA-pP/scene.splinecode" />
+      </div>
       <main className="flex-grow px-6 sm:px-10 md:px-16 lg:px-32 py-10">
         <h1 className="text-4xl font-bold text-center mb-10">Resolver</h1>
 
