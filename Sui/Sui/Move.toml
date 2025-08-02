@@ -1,6 +1,7 @@
 [package]
 name = "fusion_escrow"
-version = "0.0.1"
+version = "2024"
+edition = "2024"
 authors = ["UniteDeFi Hackathon Team"]
 
 [addresses]
