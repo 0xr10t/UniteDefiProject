@@ -38,13 +38,13 @@ const makerTraits = buildMakerTraits({
   hashLock: true,
 });
 
-console.log("makerTraits:", makerTraits); // string to pass into EIP-712 order
+console.log("makerTraits:", makerTraits); // string to pass into EIP-712 orde
 
     const domain = {
         name: "1inch Limit Order Protocol",
-        version: "3",
+        version: "2",
         chainId: srcChainId,
-        verifyingContract: '0x1111111254EEB25477B68fb85Ed929f73A960582' // Main LOP Contract
+        verifyingContract: '0x1111111254EEB25477B68fb85Ed929f73A960582' // Main LOP Contract 
     };
 
     const types = {
