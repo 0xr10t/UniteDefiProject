@@ -6,8 +6,21 @@ from twitter_scraper import scrape_twitter, format_tweets
 import asyncio
 import json
 import sys
+import os
+from datetime import datetime, timezone, timedelta
 
+
+
+import google.generativeai as genai
 config = dotenv_values(".env")
+
+genai.configure(api_key=config["GEMINI_API_KEY"])
+
+
+
+genai.configure(api_key=config["GEMINI_API_KEY"])
+
+
 
 
 llm = ChatGoogleGenerativeAI(
