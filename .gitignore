@@ -3,3 +3,4 @@
 .blueprint.autosave.xopp
 blueprint.xopp
 __pycache__/
+cookies.json
