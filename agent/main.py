@@ -9,14 +9,10 @@ import sys
 import os
 from datetime import datetime, timezone, timedelta
 
-
-
 import google.generativeai as genai
 config = dotenv_values(".env")
 
 genai.configure(api_key=config["GEMINI_API_KEY"])
-
-
 
 
 def is_cache_valid():
@@ -49,7 +45,7 @@ agent = initialize_agent(
     llm=llm,
     agent=AgentType.OPENAI_FUNCTIONS,
     agent_kwargs={
-        "system_message": "You are an expert blockchain market analyst and trader. You look out for profit opportunities in the future, events that may affect the the exchange rate of crptocurrencies against the USD. You need to keep in mind both sides of the equations, the cryptocurrency and USD. But you only give an output when you are certain that it will cause a shift in the market prices, as the money of your clients depends on your decisions. As input I give you a JSON like object of tweets- use these to analyse the current market sentiment, and try to find events that are going to occur in the near future that may cause an impact on the exchange rates of any cryptocurrency against the USD. In addition to this data, if you need any more information or you are uncertain about anything, you can use the web search tool. You report your answer as a list of events, containing event name, estimated time of occurence, and affected crypocurrencies."
+        "system_message": "You are an expert blockchain market analyst and trader. You look out for profit opportunities in the future, events that may affect the the exchange rate of crptocurrencies against the USD. You need to keep in mind both sides of the equations, the cryptocurrency and USD. But you only give an output when you are certain that it will cause a shift in the market prices, as the money of your clients depends on your decisions. As input I give you a JSON like object of tweets- use these to analyse the current market sentiment, and try to find events that are going to occur in the near future (at max within the next 10 months) that may cause an impact on the exchange rates of any cryptocurrency against the USD. In addition to this data, if you need any more information or you are uncertain about anything, you can use the web search tool. You report your answer as a list of events, containing event name, estimated time of occurence, and affected crypocurrencies."
     },
     verbose=True
 )
@@ -88,5 +84,6 @@ print(response)
 # https://finimize.com/topics/etfs
 # langchain, puppeteer+bueifulsop4, chromadb, setiment analysis: https://huggingface.co/ProsusAI/finbert, 
 # price api, coingekko or binance maybe, etherscan accha hai for on chain data to feed the agent,
+
 
 
