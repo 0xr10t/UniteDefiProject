@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import Footer from "../components/Footer";
 import Spline from "@splinetool/react-spline";
+import { useWallet } from "../context/WalletContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 // Web3 signing logic remains the same, as it's a generic utility
 async function createAndSignOrder(
@@ -74,6 +76,9 @@ console.log("makerTraits:", makerTraits); // string to pass into EIP-712 order
 }
 
 function FusionMaker() {
+  const { isConnected, account, connectWallet } = useWallet();
+  const navigate = useNavigate();
+  
   // --- STATE UPDATED FOR NEW INPUT FIELDS ---
   const [formData, setFormData] = useState({
     srcChain: "",
@@ -98,6 +103,19 @@ function FusionMaker() {
     localStorage.setItem("fusionMakerOrdersV2", JSON.stringify(myOrders));
   }, [myOrders]);
 
+  // Check wallet connection on component mount
+  useEffect(() => {
+    if (!isConnected) {
+      const initWallet = async () => {
+        const connected = await connectWallet();
+        if (!connected) {
+          navigate('/fusion');
+        }
+      };
+      initWallet();
+    }
+  }, [isConnected, connectWallet, navigate]);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -107,6 +125,11 @@ function FusionMaker() {
   };
 
   const handleSubmit = async () => {
+    if (!isConnected) {
+      alert("Please connect your wallet first.");
+      return;
+    }
+
     if (!formData.confirmed) {
       alert("Please confirm the strategy and approve deployment first.");
       return;
@@ -172,6 +195,22 @@ function FusionMaker() {
     // Withdrawal logic would be implemented here
   }
 
+  // Show loading state while checking wallet connection
+  if (!isConnected) {
+    return (
+      <div className="relative min-h-screen bg-gradient-to-b from-[#0d0220] to-[#19002a] text-white overflow-hidden">
+        <div className="absolute inset-0 z-0 transform scale-[1.5] -translate-y-32 opacity-20 pointer-events-none">
+          <Spline scene="https://prod.spline.design/k48GCVc-BEkzA-pP/scene.splinecode" />
+        </div>
+        <div className="pt-28 px-6 pb-20 z-10 max-w-7xl mx-auto text-center">
+          <h1 className="text-4xl font-bold mb-8">Connecting Wallet...</h1>
+          <p className="text-gray-400">Please connect your MetaMask wallet to continue.</p>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="relative min-h-screen  bg-gradient-to-b from-[#0d0220] to-[#19002a] text-white overflow-hidden">
       <div className="absolute inset-0 z-0 transform scale-[1.5] -translate-y-32 opacity-20 pointer-events-none">
@@ -179,7 +218,12 @@ function FusionMaker() {
       </div>
 
       <div className="pt-28 px-6 pb-20 z-10 max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-12">Create Cross Chain Fusion+ Order</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-4xl font-bold">Create Cross Chain Fusion+ Order</h1>
+          <div className="text-sm text-green-400 bg-green-400/10 px-3 py-1 rounded-full border border-green-400/30">
+            Connected: {account ? `${account.substring(0, 6)}...${account.substring(account.length - 4)}` : ''}
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 animate-bounce-once lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 bg-black bg-opacity-20 border border-purple-500 rounded ">

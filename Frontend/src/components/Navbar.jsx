@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useWallet } from "../context/WalletContext.jsx";
 
 function Navbar({ onHelpClick }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const { isConnected, account, connectWallet, disconnectWallet, isConnecting } = useWallet();
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -15,6 +17,19 @@ function Navbar({ onHelpClick }) {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleWalletClick = async () => {
+    if (isConnected) {
+      disconnectWallet();
+    } else {
+      await connectWallet();
+    }
+  };
+
+  const formatAddress = (address) => {
+    if (!address) return "";
+    return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
+  };
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur border-b border-white/10 bg-black/20 text-white">
@@ -33,20 +48,38 @@ function Navbar({ onHelpClick }) {
 
             {dropdownOpen && (
               <div className="absolute left-0 top-full bg-black border border-white/10 rounded-md shadow-lg mt-2 min-w-[160px] z-50">
-                <Link
-                  to="/fusion/maker"
-                  className="block px-4 py-2 hover:bg-white/10 transition whitespace-nowrap"
-                  onClick={() => setDropdownOpen(false)}
+                <button
+                  onClick={async () => {
+                    setDropdownOpen(false);
+                    if (!isConnected) {
+                      const connected = await connectWallet();
+                      if (connected) {
+                        window.location.href = '/fusion/maker';
+                      }
+                    } else {
+                      window.location.href = '/fusion/maker';
+                    }
+                  }}
+                  className="block w-full text-left px-4 py-2 hover:bg-white/10 transition whitespace-nowrap"
                 >
                   Maker
-                </Link>
-                <Link
-                  to="/fusion/resolver"
-                  className="block px-4 py-2 hover:bg-white/10 transition whitespace-nowrap"
-                  onClick={() => setDropdownOpen(false)}
+                </button>
+                <button
+                  onClick={async () => {
+                    setDropdownOpen(false);
+                    if (!isConnected) {
+                      const connected = await connectWallet();
+                      if (connected) {
+                        window.location.href = '/fusion/resolver';
+                      }
+                    } else {
+                      window.location.href = '/fusion/resolver';
+                    }
+                  }}
+                  className="block w-full text-left px-4 py-2 hover:bg-white/10 transition whitespace-nowrap"
                 >
                   Resolver
-                </Link>
+                </button>
               </div>
             )}
           </div>
@@ -60,8 +93,16 @@ function Navbar({ onHelpClick }) {
           </button>
         </div>
 
-        <button className="bg-purple-400/20 hover:bg-purple-400/30 text-purple-300 px-4 py-2 rounded-full border border-purple-400 backdrop-blur">
-          Connect Wallet
+        <button 
+          onClick={handleWalletClick}
+          disabled={isConnecting}
+          className={`px-4 py-2 rounded-full border backdrop-blur transition-all ${
+            isConnected 
+              ? 'bg-green-400/20 hover:bg-green-400/30 text-green-300 border-green-400' 
+              : 'bg-purple-400/20 hover:bg-purple-400/30 text-purple-300 border-purple-400'
+          } ${isConnecting ? 'opacity-50 cursor-not-allowed' : ''}`}
+        >
+          {isConnecting ? 'Connecting...' : isConnected ? formatAddress(account) : 'Connect Wallet'}
         </button>
       </div>
     </nav>
