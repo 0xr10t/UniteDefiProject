@@ -2,3 +2,4 @@
 .venv
 .blueprint.autosave.xopp
 blueprint.xopp
+__pycache__/
