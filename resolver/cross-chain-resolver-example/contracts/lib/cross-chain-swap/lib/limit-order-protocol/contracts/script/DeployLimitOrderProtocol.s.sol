@@ -12,6 +12,8 @@ contract DeployLimitOrderProtocol is Script {
     constructor() {
         // Sepolia Testnet
         wethByChainId[11155111] = 0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14;
+        //Monad Testnet
+        wethByChainId[10143] = 0x442833892181c00f61F07717782DD2469B4305f8; // Replace with actual WMON address on Monad Testnet
         // Tron (if using EVM-compatible deployment)
         // wethByChainId[728126428] = 0x418ca65d5dc1da211b8b984f6e5592474ce74cd062;
     }
