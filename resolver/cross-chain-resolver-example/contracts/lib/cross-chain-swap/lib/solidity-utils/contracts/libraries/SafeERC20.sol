@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol";
+import "../../../openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import "../../../openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Permit.sol";
 import "../interfaces/IDaiLikePermit.sol";
 import "../interfaces/IPermit2.sol";
 import "../interfaces/IERC7597Permit.sol";

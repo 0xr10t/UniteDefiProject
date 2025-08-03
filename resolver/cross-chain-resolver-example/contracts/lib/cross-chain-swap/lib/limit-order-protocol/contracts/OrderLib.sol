@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.23;
+pragma solidity ^0.8.23;
 
-import "@1inch/solidity-utils/contracts/libraries/ECDSA.sol";
-import "@1inch/solidity-utils/contracts/libraries/AddressLib.sol";
+import "../..//solidity-utils/contracts/libraries/ECDSA.sol";
+import "../../solidity-utils/contracts/libraries/AddressLib.sol";
 
 import "./interfaces/IOrderMixin.sol";
 import "./libraries/MakerTraitsLib.sol";

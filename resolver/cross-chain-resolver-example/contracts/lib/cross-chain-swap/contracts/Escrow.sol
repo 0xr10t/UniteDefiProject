@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.23;
+pragma solidity ^0.8.23;
 
-import { Create2 } from "openzeppelin-contracts/contracts/utils/Create2.sol";
+import { Create2 } from "../lib/openzeppelin-contracts/contracts/utils/Create2.sol";
 
 import { ImmutablesLib } from "./libraries/ImmutablesLib.sol";
 import { ProxyHashLib } from "./libraries/ProxyHashLib.sol";

@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.23;
+pragma solidity ^0.8.23;
 
-import { Math } from "@openzeppelin/contracts/utils/math/Math.sol";
-import { IOrderMixin } from "@1inch/limit-order-protocol-contract/contracts/interfaces/IOrderMixin.sol";
-import { IPostInteraction } from "@1inch/limit-order-protocol-contract/contracts/interfaces/IPostInteraction.sol";
-import { IPreInteraction } from "@1inch/limit-order-protocol-contract/contracts/interfaces/IPreInteraction.sol";
-import { IAmountGetter } from "@1inch/limit-order-protocol-contract/contracts/interfaces/IAmountGetter.sol";
+import { Math } from "../../../openzeppelin-contracts/contracts/utils/math/Math.sol";
+import { IOrderMixin } from "../../../limit-order-protocol/contracts/interfaces/IOrderMixin.sol";
+import { IPostInteraction } from "../../../limit-order-protocol/contracts/interfaces/IPostInteraction.sol";
+import { IPreInteraction } from "../../../limit-order-protocol/contracts/interfaces/IPreInteraction.sol";
+import { IAmountGetter } from "../../../limit-order-protocol/contracts/interfaces/IAmountGetter.sol";
 
 /**
  * @title Base Extension contract

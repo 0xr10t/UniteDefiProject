@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.23;
+pragma solidity ^0.8.23;
 
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
-import { IOrderMixin } from "@1inch/limit-order-protocol-contract/contracts/interfaces/IOrderMixin.sol";
+import { IERC20 } from "../../openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import { Ownable } from "../../openzeppelin-contracts/contracts/access/Ownable.sol";
+import { IOrderMixin } from "../../limit-order-protocol/contracts/interfaces/IOrderMixin.sol";
 import { BaseExtension } from "./extensions/BaseExtension.sol";
 import { IntegratorFeeExtension } from "./extensions/IntegratorFeeExtension.sol";
 import { ResolverValidationExtension } from "./extensions/ResolverValidationExtension.sol";

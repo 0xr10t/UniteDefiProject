@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.23;
+pragma solidity ^0.8.23;
 
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { IOrderMixin } from "@1inch/limit-order-protocol-contract/contracts/interfaces/IOrderMixin.sol";
+import { IERC20 } from "../../../openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import { IOrderMixin } from "../../../limit-order-protocol/contracts/interfaces/IOrderMixin.sol";
 import { FeeBankCharger } from "../FeeBankCharger.sol";
 import { BaseExtension } from "./BaseExtension.sol";
 import { ExtensionLib } from "./ExtensionLib.sol";

@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.23;
+pragma solidity ^0.8.23;
 
-import "@openzeppelin/contracts/utils/math/Math.sol";
-import { EIP712 } from "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/Pausable.sol";
+import "../../openzeppelin-contracts/contracts/utils/math/Math.sol";
+import { EIP712 } from "../../openzeppelin-contracts/contracts/utils/cryptography/EIP712.sol";
+import "../../openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import "../../openzeppelin-contracts/contracts/utils/Pausable.sol";
 
-import "@1inch/solidity-utils/contracts/interfaces/IWETH.sol";
-import "@1inch/solidity-utils/contracts/libraries/SafeERC20.sol";
-import "@1inch/solidity-utils/contracts/mixins/OnlyWethReceiver.sol";
-import "@1inch/solidity-utils/contracts/mixins/PermitAndCall.sol";
+import "../../solidity-utils/contracts/interfaces/IWETH.sol";
+import "../../solidity-utils/contracts/libraries/SafeERC20.sol";
+import "../../solidity-utils/contracts/mixins/OnlyWethReceiver.sol";
+import "./solidity-utils/contracts/mixins/PermitAndCall.sol";
 
 import "./helpers/PredicateHelper.sol";
 import "./helpers/SeriesEpochManager.sol";

@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/interfaces/IERC1271.sol";
+import "../../../openzeppelin-contracts/contracts/interfaces/IERC1271.sol";
 
 /**
  * @title ECDSA signature operations

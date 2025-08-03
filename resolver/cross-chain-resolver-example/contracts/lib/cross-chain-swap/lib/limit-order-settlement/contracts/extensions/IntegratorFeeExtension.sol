@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.23;
+pragma solidity ^0.8.23;
 
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
-import { IOrderMixin } from "@1inch/limit-order-protocol-contract/contracts/interfaces/IOrderMixin.sol";
-import { MakerTraits, MakerTraitsLib } from "@1inch/limit-order-protocol-contract/contracts/libraries/MakerTraitsLib.sol";
-import { SafeERC20 } from "@1inch/solidity-utils/contracts/libraries/SafeERC20.sol";
-import { Address, AddressLib } from "@1inch/solidity-utils/contracts/libraries/AddressLib.sol";
-import { UniERC20 } from "@1inch/solidity-utils/contracts/libraries/UniERC20.sol";
+import { IERC20 } from "../../../openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import { Ownable } from "../../../openzeppelin-contracts/contracts/access/Ownable.sol";
+import { IOrderMixin } from "../../../limit-order-protocol/contracts/interfaces/IOrderMixin.sol";
+import { MakerTraits, MakerTraitsLib } from "../../../limit-order-protocol/contracts/libraries/MakerTraitsLib.sol";
+import { SafeERC20 } from "../../../solidity-utils/contracts/libraries/SafeERC20.sol";
+import { Address, AddressLib } from "../../../solidity-utils/contracts/libraries/AddressLib.sol";
+import { UniERC20 } from "../../../solidity-utils/contracts/libraries/UniERC20.sol";
 import { BaseExtension } from "./BaseExtension.sol";
 import { ExtensionLib } from "./ExtensionLib.sol";
 

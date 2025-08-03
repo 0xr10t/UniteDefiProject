@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.23;
+pragma solidity ^0.8.23;
 
-import { RevertReasonForwarder } from "solidity-utils/contracts/libraries/RevertReasonForwarder.sol";
+import { RevertReasonForwarder } from "../../lib/solidity-utils/contracts/libraries/RevertReasonForwarder.sol";
 
 contract NoReceiveCaller {
     function arbitraryCall(address target, bytes calldata arguments) external {

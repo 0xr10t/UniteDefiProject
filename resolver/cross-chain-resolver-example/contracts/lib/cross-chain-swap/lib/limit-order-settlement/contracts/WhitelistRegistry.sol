@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.23;
+pragma solidity ^0.8.23;
 
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
-import { UniERC20 } from "@1inch/solidity-utils/contracts/libraries/UniERC20.sol";
-import { AddressSet, AddressArray } from "@1inch/solidity-utils/contracts/libraries/AddressSet.sol";
+import { IERC20 } from "../../openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import { Ownable } from "../../openzeppelin-contracts/contracts/access/Ownable.sol";
+import { UniERC20 } from "../../solidity-utils/contracts/libraries/UniERC20.sol";
+import { AddressSet, AddressArray } from "../../solidity-utils/contracts/libraries/AddressSet.sol";
 
 /**
  * @title WhitelistRegistry

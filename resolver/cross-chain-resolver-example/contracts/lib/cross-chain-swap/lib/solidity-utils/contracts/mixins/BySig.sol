@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.0;
 
-import { Context } from "@openzeppelin/contracts/utils/Context.sol";
-import { Address } from "@openzeppelin/contracts/utils/Address.sol";
-import { EIP712 } from "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
+import { Context } from "../../../openzeppelin-contracts/contracts/utils/Context.sol";
+import { Address } from "../../../openzeppelin-contracts/contracts/utils/Address.sol";
+import { EIP712 } from "../../../openzeppelin-contracts/contracts/utils/cryptography/EIP712.sol";
 import { ECDSA } from "../libraries/ECDSA.sol";
 import { BySigTraits } from "../libraries/BySigTraits.sol";
 import { AddressArray } from "../libraries/AddressArray.sol";

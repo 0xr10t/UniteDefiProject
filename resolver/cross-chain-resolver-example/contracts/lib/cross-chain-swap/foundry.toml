@@ -8,6 +8,13 @@ via-ir = true
 evm_version = 'shanghai'
 gas_reports = ["EscrowSrc", "EscrowDst", "EscrowFactory", "MerkleStorageInvalidator"]
 
+remappings = [
+  { "openzeppelin-contracts"= "openzeppelin-contracts/contracts" },
+  { "limit-order-protocol"= "limit-order-protocol/contracts" },
+  { "solidity-utils"= "solidity-utils/contracts" },
+  { "cross-chain-swap"= "cross-chain-swap/contracts" }
+]
+
 [profile.lite.optimizer_details.yulDetails]
 optimizerSteps = ''
 

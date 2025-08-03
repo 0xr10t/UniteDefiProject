@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.23;
+pragma solidity ^0.8.23;
 
-import { EIP712 } from "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Pausable.sol";
+import { EIP712 } from "../../openzeppelin-contracts/contracts/utils/cryptography/EIP712.sol";
+import "../../openzeppelin-contracts/contracts/access/Ownable.sol";
+import "../../openzeppelin-contracts/contracts/utils/Pausable.sol";
 import "./OrderMixin.sol";
 
 /**

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.23;
+pragma solidity ^0.8.23;
 
-import { IOrderMixin } from "limit-order-protocol/contracts/interfaces/IOrderMixin.sol";
-import { TakerTraits } from "limit-order-protocol/contracts/libraries/TakerTraitsLib.sol";
+import { IOrderMixin } from "../../lib/limit-order-protocol/contracts/interfaces/IOrderMixin.sol";
+import { TakerTraits } from "../../lib/limit-order-protocol/contracts/libraries/TakerTraitsLib.sol";
 
 import { IBaseEscrow } from "../interfaces/IBaseEscrow.sol";
 
