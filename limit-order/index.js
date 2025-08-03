@@ -1,6 +1,9 @@
 import { Sdk, Address, MakerTraits, randBigInt, FetchProviderConnector, LimitOrderPredicateBuilder } from '@1inch/limit-order-sdk';
 import { ethers, Interface } from 'ethers';
-import { AbiCoder } from 'ethers/lib/utils';
+import { encodeAmountGetter } from '@1inch/limit-order-protocol-utils';
+import { LimitOrderProtocolFacade } from '@1inch/limit-order-protocol-utils';
+import { LimitOrderBuilder } from '@1inch/limit-order-protocol-utils';
+import { Web3ProviderConnector } from '@1inch/limit-order-protocol-utils'; // or similar depending on SDK version
 
 
 
@@ -12,9 +15,23 @@ async function createLimitOrder(orderID, makingAmount, takingAmount, makerAssetA
     const signer = provider.getSigner();
     const userAddress = await signer.getAddress();
 
+    const connector = new Web3ProviderConnector(window.ethereum);
+
+    const chainId = 11155111; // Sepolia
+    const verifyingContract = '0x5ae1afcd924bf1a0ec576b0d7740cabbc9f4f356';
+
+    const limitOrderBuilder = new LimitOrderBuilder(
+        verifyingContract,
+        chainId,
+        provider // ethers.js provider connected to Sepolia
+    );
+
+
     const sdk = new Sdk({
         authKey: 'dummy',
-        networkId: 1,
+        contractAddress: '0x5ae1afcd924bf1a0ec576b0d7740cabbc9f4f356',
+        chainId: 11155111,
+        provider: connector,
         httpConnector: new FetchProviderConnector()
     });
 
@@ -28,10 +45,10 @@ async function createLimitOrder(orderID, makingAmount, takingAmount, makerAssetA
     const timePredicate = predicateBuilder.timestampBelow(expiration);
 
 
-    const oracleAddress = '0xYourOracleAddress';
-    const key = orderID; //uint256
+    const oracleAddress = '0x603A0B8aeD412116875De035b8D31D35E1E1CA18'; // flag oracle
+    const key = orderID; //string
 
-    const abi = ['function getData(uint256) view returns (bool)'];
+    const abi = ['function getData(string) view returns (bool)'];
     const iface = new Interface(abi);
 
     const callData = iface.encodeFunctionData('getData', [key]);
@@ -52,29 +69,52 @@ async function createLimitOrder(orderID, makingAmount, takingAmount, makerAssetA
         return;
     }
 
-    var order;
+    const priceOracleAddress = '0x738e439ABcc68664aa6DFFD7ab497cbb76745652'; // price oracle
 
-    if (makingAmount === 1n){
-        order = await sdk.createOrder({
-            makerAsset: new Address(makerAssetAddress),
-            takerAsset: new Address(takerAssetAddress),
-            makingAmount,
-            takingAmount,
-            makerAssetData: encodeAmountGetter("something"), 
-            maker: new Address(userAddress)
-        }, traits);
+    // these token addresses are for sepolia testnet
+    var takerAssetData;
+
+    if (makerAssetAddress === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" && takerAssetAddress === "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238	"){
+        // eth se usdc me swap 
+        const iface2 = new Interface(['function getUeiInxETH(uint256) view returns uint256']);// returns the number of usdc/10^6 in eth
+        const getterCalldata = iface2.encodeFunctionData('getUeiInxETH', [makingAmount]);
+        takerAssetData = encodeAmountGetter(
+            priceOracleAddress,
+            getterCalldata
+        );
 
     }
-    else if (takingAmount === 1n){
+    else if (makerAssetAddress === "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238" && takerAssetAddress === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"){
+        // usdc se eth me swap 
+        const iface2 = new Interface(['function getWeiInxUSDC(uint256) view returns uint256']);// returns the number of eth/10^18 in usdc
+        const getterCalldata = iface2.encodeFunctionData('getWeiInxUSDC', [makingAmount]);
+        takerAssetData = encodeAmountGetter(
+            priceOracleAddress,
+            getterCalldata
+        );
+
+    }
+    else{
+        //error
+        return;
+    }
+
+    var order;
+
+
+    if (takingAmount === 1n){
         order = await sdk.createOrder({
             makerAsset: new Address(makerAssetAddress),
             takerAsset: new Address(takerAssetAddress),
             makingAmount,
             takingAmount,
-            takerAssetData: encodeAmountGetter("something"), 
+            takerAssetData: takerAssetData, 
             maker: new Address(userAddress)
         }, traits);
-
+    }
+    else{
+        // error (for now)
+        return;
     }
 
     const typedData = order.getTypedData();
@@ -101,6 +141,7 @@ async function createLimitOrder(orderID, makingAmount, takingAmount, makerAssetA
     console.log('Signature:', signature);
 
     await sdk.submitOrder(order, signature);
+    const orderHash = LimitOrderProtocolFacade.getOrderHash(order, '0x5ae1afcd924bf1a0ec576b0d7740cabbc9f4f356');
 
 }
 
