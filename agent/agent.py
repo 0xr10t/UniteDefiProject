@@ -7,7 +7,6 @@ import asyncio
 import json
 from datetime import datetime, timezone, timedelta
 from db import MongoDB, OrderSchema
-import time
 
 config = dotenv_values(".env")
 
@@ -46,13 +45,13 @@ def save_tweets(mdb, tweets):
 
     mdb["tweets"].insert_one(tweets)
     
-def save_order(mdb, orderID, orderName, searchTerm):
+def save_order(mdb, orderID, orderName, searchTerm, desc):
     orders_coll = mdb.orders
-    order_data = OrderSchema(orderID==orderID, eventName=orderName, searchString=searchTerm, status=0)
+    order_data = OrderSchema(orderID=orderID, eventName=orderName, searchString=searchTerm, status=0, description=desc)
     orders_coll.insert_one(order_data.model_dump())
 
 
-def handle_new_request(direction):
+def handle_new_request(userAddress, direction, amount):
     # direction = "ETH->USDC" or "USDC->ETH"
     twitter_results_json = None
     mdb = MongoDB()
@@ -77,10 +76,10 @@ def handle_new_request(direction):
             print(twitter_results)
             return False
         
-        print(twitter_results)
+        # print(twitter_results)
             
         formatted_tweets = format_tweets(twitter_results)
-        print(formatted_tweets)
+        # print(formatted_tweets)
         save_tweets(mdb.db, formatted_tweets)
         formatted_tweets["_id"] = str(formatted_tweets["_id"])
         twitter_results_json = json.dumps(formatted_tweets)
@@ -88,7 +87,7 @@ def handle_new_request(direction):
         
         
     llm = ChatGoogleGenerativeAI(
-        model="gemini-2.5-pro",
+        model="gemini-2.0-flash",
         google_api_key = config["GEMINI_API_KEY"],
         temperature=0.7
     )
@@ -120,15 +119,15 @@ def handle_new_request(direction):
     print(llm.get_num_tokens(system_prompt+user_prompt))
 
     response = agent.invoke(user_prompt)
-    print(response)
+    print(type(response))
 
-    system_prompt_2 = r"""You are a financial advisor at a high stakes firm. You will be given an input, which will contain some entries of events in the near future, which may affect the trade prices of ETH vs USDC. You may use the search tool provided to you to get any info about these events you need. You need to take this input and analyse each event, with all of the given parameters, see if the input has any errors. If there are any errors, discard that event. After tihs, choose one event which you think will create the maximum opportunity for profit, and make any corrections needed in the input data. Bsaed on this event, make a BUY or SELL directive for you customer, with the aim of maximizing his/her profit. Also, for this event, generate a search term which you think will help another agent get all the info about this event using search tools, just as you did. In this search term, also include the rough estimate of date/time of occurence of this event. REMEMBER: You only need to choose trades having one type of swap, either USDC->ETH or ETH->USDC. I WILL SPECIFY IN THE USER PROMPT WHICH ONE I WANT. THE EVENT NEEDS TO BE SUCH THAT IF I PERFORM THE SWAP AFTER THE OCCURENCE OF THE EVENT, THE SWAP SHOULD BE PROFITABLE FOR ME. Output all this data in a json with the format:
-    {{"name": "Event Name", "search_term": "Your generated search term"}}. The list of dates will be provided in the original input, but you can make corrections in it if you deem necessary. ONLY INCLUDE THE JSON IN THE OUTPUT, NO OTHER TEXT. STRICTLY FOLLOW THE OUTPUT JSON FORMAT.
+    system_prompt_2 = r"""You are a financial advisor at a high stakes firm. You will be given an input, which will contain some entries of events in the near future, which may affect the trade prices of ETH vs USDC. You may use the search tool provided to you to get any info about these events you need. You need to take this input and analyse each event, with all of the given parameters, see if the input has any errors. If there are any errors, discard that event. After tihs, choose one event which you think will create the maximum opportunity for profit, and make any corrections needed in the input data. Bsaed on this event, make a BUY or SELL directive for you customer, with the aim of maximizing his/her profit. Pass on the description of the event as receieved, with some tweaks allowed if needed. Also, for this event, generate a search term which you think will help another agent get all the info about this event using search tools, just as you did. In this search term, also include the rough estimate of date/time of occurence of this event. REMEMBER: You only need to choose trades having one type of swap, either USDC->ETH or ETH->USDC. I WILL SPECIFY IN THE USER PROMPT WHICH ONE I WANT. THE EVENT NEEDS TO BE SUCH THAT IF I PERFORM THE SWAP AFTER THE OCCURENCE OF THE EVENT, THE SWAP SHOULD BE PROFITABLE FOR ME. Output all this data in a json with the format:
+    OUTPUTSTARTS->{{"name": "Event Name", "search_term": "Your generated search term", "description": "Description of the event"}}<-OUTPUTENDS. The list of dates will be provided in the original input, but you can make corrections in it if you deem necessary. ONLY INCLUDE THE JSON IN THE OUTPUT, NO OTHER TEXT. RETURN THE STRING DUMP OF THE JSON, IT SHOULD ONLY AND ONLY CONTAIN THE JSON STRING, NO OTHER TEXT. DO NOT ADD ANY MARKDOWN, HEADERS, EXPLANATIONS, OR CODE BLOCKS. DO NOT WRITE json BEFORE THE OUTPUT. ONLY return the raw JSON object as plain text.
+
+
 
   """
-  
-    print("Sleeping")
-    time.sleep(62)
+
   
     agent = initialize_agent(
         tools=tools,
@@ -141,28 +140,40 @@ def handle_new_request(direction):
     )
     
     if direction == "ETH->USDC":
-        user_prompt2 = f"I am providing you the input data of events- analyse it and give the required output. KEEP IN MIND, I ONLY WANT TRADES THAT WILL BE PROFITABLE IF I HAVE ETH TO SELL, THAT IS I WANT TO SWAP ETH TO USDC. - {response}"
+        user_prompt2 = f"I am providing you the input data of events- analyse it and give the required output. KEEP IN MIND, I ONLY WANT TRADES THAT WILL BE PROFITABLE IF I HAVE ETH TO SELL, THAT IS I WANT TO SWAP ETH TO USDC. - {response["output"]}"
         
     elif direction=="USDC->ETH":
-        user_prompt2 = f"I am providing you the input data of events- analyse it and give the required output. KEEP IN MIND, I ONLY WANT TRADES THAT WILL BE PROFITABLE IF I HAVE USDC TO SELL, THAT IS I WANT TO SWAP USDC TO ETH. - {response}"
+        user_prompt2 = f"I am providing you the input data of events- analyse it and give the required output. KEEP IN MIND, I ONLY WANT TRADES THAT WILL BE PROFITABLE IF I HAVE USDC TO SELL, THAT IS I WANT TO SWAP USDC TO ETH. - {response["output"]}"
 
 
     print(llm.get_num_tokens(system_prompt_2+user_prompt2))
 
     response2 = agent.invoke(user_prompt2)
     
-    print(response2)
+    print(type(response2))
+    # print(response2)
     # final_out = json.loads(response2)
-    final_out = response2
+    print(response2["output"])
+    print("------------------")
     
+    output = response2["output"]
+    
+    if output.startswith("```json"):
+        output = output.strip("```json").strip('```').strip("\n")
+    
+    print(output)
+    
+    final_out = json.loads(output)
+        
     search_term = final_out["search_term"]
     event_name = final_out["name"]
-    dates = final_out["dates"]
+    desc = final_out["description"]
+
     orderID = mint_order()
     
-    save_order(mdb, orderID, event_name, search_term) # status 0 means hasnt been changed yet. status 1 means it has been changed already.
+    save_order(mdb, orderID, event_name, search_term, desc) # status 0 means hasnt been changed yet. status 1 means it has been changed already.
     
-handle_new_request("USDC->ETH")
+# handle_new_request("USDC->ETH")
 
 # import time
 

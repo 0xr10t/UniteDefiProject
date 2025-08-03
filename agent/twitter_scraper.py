@@ -2,11 +2,8 @@ import json
 import requests
 from datetime import datetime, timezone, timedelta
 
-# ACCOUNTS_TO_TRACK = [
-#     "cz_binance", "VitalikButerin", "aantonop", "CoinDesk", "MessariCrypto", "laurashin", "wun", "RaoulPalReal", "Nansen_ai", "Coinbase", "WatcherGuru", "CryptoWendyO", "scottmelker", "APompliano", "TheBlock__", "Cointelegraph", "balajis", "brian_armstrong", "michael_saylor", "nic__carter", "samczsun", "ChrisBlec", "zachxbt", "sassal0x", "chainlinkgod", "SECGov", "CFTC", "federalreserve", "eigenlayer"
-# ]
 ACCOUNTS_TO_TRACK = [
-    "cz_binance", "CoinDesk", "WatcherGuru", "Cointelegraph", "RaoulPalReal", "brian_armstrong", "federalreserve", "MessariCrypto", "nic__carter", "laurashin",  "chainlinkgod", "zachxbt"      
+    "cz_binance", "VitalikButerin", "aantonop", "CoinDesk", "MessariCrypto", "laurashin", "wun", "RaoulPalReal", "Nansen_ai", "Coinbase", "WatcherGuru", "CryptoWendyO", "scottmelker", "APompliano", "TheBlock__", "Cointelegraph", "balajis", "brian_armstrong", "michael_saylor", "nic__carter", "samczsun", "ChrisBlec", "zachxbt", "sassal0x", "chainlinkgod", "SECGov", "CFTC", "federalreserve", "eigenlayer"
 ]
 
 CASHTAGS_TO_TRACK = [
@@ -28,6 +25,8 @@ SEARCH_TERMS = [
     "USDC regulation", "Circle USDC", "ETH funding rates",
     "USDC interest rate", "ETH gas fee impact", "ETH stablecoin swap"
 ]
+
+
 
 
 # Initialize client

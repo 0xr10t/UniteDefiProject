@@ -21,11 +21,11 @@ def get_uei_in_1_eth():
     return float(data['price'])* 10**6
 
 def update():
-    wei_in_1_usdc = get_wei_in_1_usdc()
-    uei_in_1_eth = get_uei_in_1_eth()
+    wei_in_1_usdc = int(get_wei_in_1_usdc())
+    uei_in_1_eth = int(get_uei_in_1_eth())
     
     w3 = Web3(Web3.HTTPProvider("https://eth-sepolia.g.alchemy.com/v2/2MP119h1LpgpO7DALxVly"))
-    contract_address = Web3.toChecksumAddress("0x738e439ABcc68664aa6DFFD7ab497cbb76745652")
+    contract_address = Web3.to_checksum_address("0x738e439ABcc68664aa6DFFD7ab497cbb76745652")
     abi = [
         {
             "inputs": [],
@@ -156,10 +156,10 @@ def update():
     'from': oracle_account.address,
     'nonce': w3.eth.get_transaction_count(oracle_account.address),
     'gas': 100000,
-    'gasPrice': w3.toWei('5', 'gwei')
+    'gasPrice': w3.to_wei('5', 'gwei')
     })
 
     signed_tx = w3.eth.account.sign_transaction(tx, private_key)
-    tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
 
     print(f"Submitted data tx: {w3.toHex(tx_hash)}")

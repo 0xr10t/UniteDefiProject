@@ -16,6 +16,7 @@ class OrderSchema(BaseModel):
     orderID: str
     eventName: str
     searchString: str
+    description: str
     status: int
 
 class MongoDB:
