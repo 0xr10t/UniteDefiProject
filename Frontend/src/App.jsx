@@ -8,6 +8,7 @@ import FusionMaker from "./pages/FusionMaker.jsx";
 import FusionResolver from "./pages/FusionResolver.jsx";
 import Navbar from "./components/Navbar.jsx";
 import { WalletProvider } from "./context/WalletContext.jsx";
+import ConnectWallet from "./components/ConnectWallet.jsx";
 
 function App() {
   const [helpOpen, setHelpOpen] = useState(false);
