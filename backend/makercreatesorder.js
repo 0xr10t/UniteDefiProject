@@ -1,5 +1,6 @@
-import{ethers} from "ethers"
-import { buildMakerTraits } from "@1inch/limit-order-protocol-utils"
+// Use global ethers from CDN instead of importing
+// import{ethers} from "ethers"
+// buildMakerTraits will be defined locally since we can't import from npm in browser
 
 const domain={
   name: "1inch Limit Order Protocol",
@@ -24,6 +25,23 @@ const types = {//check type are correct or not
 }
 
 const secret = ethers.utils.hexlify(ethers.utils.randomBytes(32))
+
+// Function to build maker traits (local implementation)
+function buildMakerTraits({
+  allowMultipleFills = false,
+  allowPartialFills = false,
+  usePermit2 = false,
+  hashLock = false,
+}) {
+  let traits = 0n;
+
+  if (allowMultipleFills) traits |= 1n << 255n;
+  if (allowPartialFills)  traits |= 1n << 253n;
+  if (usePermit2)         traits |= 1n << 252n;
+  if (hashLock)           traits |= 1n << 250n;
+
+  return traits.toString(); // use this as makerTraits
+}
 
 const makerTraits = buildMakerTraits({// ek baar check krlena limit order protocol ki lib se
   allowMultipleFills: false,
@@ -54,7 +72,10 @@ function computeMessageHash(){
 
 
  async function signMessage() {
-  const provider = new ethers.providers.Web3Provider(window.ethereum) 
+  const provider = new ethers.providers.Web3Provider(window.ethereum, {
+    name: 'sepolia',
+    chainId: 11155111
+  }) 
   await provider.send("eth_requestAccounts", [])
   const signer = provider.getSigner()
   const signature = await signer._signTypedData(domain, types, message) 
