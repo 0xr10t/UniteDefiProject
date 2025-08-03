@@ -98,7 +98,7 @@ function Home() {
       <div className="relative z-10 py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 select-none">Why Choose UniteDefi?</h2>
+            <h2 className="text-4xl font-bold mb-4 select-none">Why Choose MeowSwap?</h2>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto select-none">
               Built for the next generation of DeFi trading with cutting-edge technology
             </p>

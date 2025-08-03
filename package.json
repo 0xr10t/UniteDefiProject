@@ -1,4 +1,21 @@
 {
+  "name": "meowswap-project",
+  "version": "0.1.0",
+  "description": "MeowSwap - Cross-chain DeFi Protocol",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd Frontend && npm run dev",
+    "build": "cd Frontend && npm run build",
+    "preview": "cd Frontend && npm run preview"
+  },
+  "keywords": [
+    "meowswap",
+    "defi",
+    "cross-chain",
+    "swap"
+  ],
+  "author": "MeowSwap Team",
+  "license": "MIT",
   "dependencies": {
     "react-router-dom": "^7.7.1"
   }
