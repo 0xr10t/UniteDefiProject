@@ -73,6 +73,12 @@ response = agent.run(f"Study the data I am giving, and use web search, to determ
 
 print(response)
 
+# import time
+
+# timestamp_str = str(int(time.time()))
+# print(timestamp_str)
+# use this to make the order id of a new order
+
 # steps of chain:
 # 1. analyze the tweets to find events, and also use search tool along with the twiter data
 # 2. analyze the outcomes of these events and its effect on the stock prices, using a search tool.
