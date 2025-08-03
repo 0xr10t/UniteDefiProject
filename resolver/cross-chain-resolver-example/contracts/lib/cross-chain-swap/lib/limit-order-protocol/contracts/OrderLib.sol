@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.23;
 
-import "../..//solidity-utils/contracts/libraries/ECDSA.sol";
-import "../../solidity-utils/contracts/libraries/AddressLib.sol";
+import "./lib/solidity-utils/contracts/libraries/ECDSA.sol";
+import "./lib/solidity-utils/contracts/libraries/AddressLib.sol";
 
 import "./interfaces/IOrderMixin.sol";
 import "./libraries/MakerTraitsLib.sol";

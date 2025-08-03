@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../../../solidity-utils/contracts/libraries/AddressLib.sol";
+import "../lib/solidity-utils/contracts/libraries/AddressLib.sol";
 import "../libraries/MakerTraitsLib.sol";
 import "../libraries/TakerTraitsLib.sol";
 

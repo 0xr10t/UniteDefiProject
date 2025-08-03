@@ -1,14 +1,17 @@
 {
   "name": "@1inch/cross-chain-swap",
   "version": "1.0.0",
-  "description": "",
+  "description": "[![Build Status](https://github.com/1inch/cross-chain-swap/workflows/CI/badge.svg)](https://github.com/1inch/cross-chain-swap/actions) [![Coverage Status](https://codecov.io/gh/1inch/cross-chain-swap/graph/badge.svg?token=gOb8pdfcxg)](https://codecov.io/gh/1inch/cross-chain-swap)",
   "repository": {
     "type": "git",
-    "url": "git@github.com:1inch/cross-chain-swap.git"
+    "url": "git+ssh://git@github.com/1inch/cross-chain-swap.git"
   },
   "license": "MIT",
   "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
+    "dotenv": "^17.2.1",
     "eslint": "8.56.0",
+    "hardhat": "^2.26.1",
     "rimraf": "5.0.5",
     "solc": "0.8.23",
     "solhint": "5.0.1"
@@ -29,5 +32,15 @@
   "dependencies": {
     "@1inch/delegating": "^2.0.0",
     "@1inch/st1inch": "^2.2.0"
-  }
+  },
+  "main": "tronbox.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/1inch/cross-chain-swap/issues"
+  },
+  "homepage": "https://github.com/1inch/cross-chain-swap#readme"
 }
