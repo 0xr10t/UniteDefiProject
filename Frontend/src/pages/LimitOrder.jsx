@@ -13,24 +13,24 @@ function LimitOrders() {
     {
       id: "0x1a2b3c",
       pair: "ETH/USDC",
+      type: "Buy",
       amount: "1.5 ETH",
       price: "2,450 USDC",
       filled: "0%",
       status: "Active",
       created: "2h ago",
       event: "OrderCreated",
-      condition: "Buy when RSI drops below 30 and volume increases by 20%",
     },
     {
       id: "0x4d5e6f",
       pair: "BTC/USDT",
+      type: "Sell",
       amount: "0.1 BTC",
       price: "45,000 USDT",
       filled: "25%",
       status: "Partial",
       created: "4h ago",
       event: "OrderCreated",
-      condition: "Sell when price breaks resistance at $45K with strong volume",
     },
   ];
 
@@ -38,13 +38,13 @@ function LimitOrders() {
     {
       id: "0x7g8h9i",
       pair: "MATIC/USDC",
+      type: "Buy",
       amount: "1000 MATIC",
       price: "0.85 USDC",
       filled: "100%",
       status: "Completed",
       created: "1d ago",
       event: "OrderFilled",
-      condition: "Buy on support bounce with bullish divergence signal",
     },
   ];
 
@@ -151,6 +151,9 @@ function LimitOrders() {
                       Pair
                     </th>
                     <th className="text-left py-4 px-6 text-sm font-medium text-gray-300 uppercase tracking-wider">
+                      Type
+                    </th>
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-300 uppercase tracking-wider">
                       Amount
                     </th>
                     <th className="text-left py-4 px-6 text-sm font-medium text-gray-300 uppercase tracking-wider">
@@ -161,9 +164,6 @@ function LimitOrders() {
                     </th>
                     <th className="text-left py-4 px-6 text-sm font-medium text-gray-300 uppercase tracking-wider">
                       Status
-                    </th>
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-300 uppercase tracking-wider">
-                      AI Condition
                     </th>
                     <th className="text-left py-4 px-6 text-sm font-medium text-gray-300 uppercase tracking-wider">
                       Events
@@ -190,6 +190,17 @@ function LimitOrders() {
                             {order.pair}
                           </span>
                         </td>
+                        <td className="py-4 px-6">
+                          <span
+                            className={`px-2 py-1 rounded text-xs font-medium ${
+                              order.type === "Buy"
+                                ? "bg-green-500/10 text-green-400"
+                                : "bg-red-500/10 text-red-400"
+                            }`}
+                          >
+                            {order.type}
+                          </span>
+                        </td>
                         <td className="py-4 px-6 font-mono text-sm text-gray-200">
                           {order.amount}
                         </td>
@@ -211,31 +222,6 @@ function LimitOrders() {
                         </td>
                         <td className="py-4 px-6">
                           <StatusBadge status={order.status} />
-                        </td>
-                        <td className="py-4 px-6 max-w-xs">
-                          <div className="flex items-center space-x-2">
-                            <div className="w-4 h-4 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex-shrink-0 flex items-center justify-center">
-                              <svg
-                                className="w-2.5 h-2.5 text-white"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={3}
-                                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                                />
-                              </svg>
-                            </div>
-                            <span
-                              className="text-xs text-cyan-300 truncate"
-                              title={order.condition}
-                            >
-                              {order.condition}
-                            </span>
-                          </div>
                         </td>
                         <td className="py-4 px-6 font-mono text-xs text-purple-300">
                           {order.event}

@@ -1,4 +1,3 @@
-/* filepath: /home/yash/UniteDefi/frontend/Frontend/src/components/Footer.jsx */
 import React from "react";
 
 function Footer() {
@@ -19,9 +18,13 @@ function Footer() {
           {/* Logo and Description */}
           <div className="flex flex-col items-center md:items-start mb-6 md:mb-0">
             <div className="flex items-center space-x-3 mb-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg"></div>
+              <img 
+                src="/unitedefi.png" 
+                alt="MeowSwap" 
+                className="w-10 h-10 object-contain"
+              />
               <span className="text-lg font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                UniteDefi
+                MeowSwap
               </span>
             </div>
             <p className="text-gray-400 text-sm text-center md:text-left max-w-xs">
@@ -65,7 +68,7 @@ function Footer() {
 
         <div className="border-t border-white/10 mt-6 pt-6 text-center">
           <p className="text-sm text-gray-400 select-none">
-            © {currentYear} UniteDefi. All rights reserved. | Built for the future of DeFi
+            © {currentYear} MeowSwap. All rights reserved. | Built for the future of DeFi
           </p>
         </div>
       </div>

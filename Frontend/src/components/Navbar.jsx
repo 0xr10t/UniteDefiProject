@@ -11,13 +11,14 @@ function Navbar({ onHelpClick }) {
         
         {/* Professional Logo */}
         <Link to="/" className="flex items-center space-x-3 select-none" draggable={false}>
-          <div className="relative">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 via-blue-500 to-cyan-400 rounded-xl shadow-lg"></div>
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-400 via-blue-400 to-cyan-300 rounded-xl blur-sm opacity-50"></div>
-          </div>
+          <img 
+            src="/unitedefi.png" 
+            alt="MeowSwap" 
+            className="w-15 h-10 object-contain"
+          />
           <div className="flex flex-col">
             <span className="text-xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              UniteDefi
+              MeowSwap
             </span>
             <span className="text-xs text-gray-400 -mt-1">Cross-Chain Protocol</span>
           </div>
@@ -38,8 +39,8 @@ function Navbar({ onHelpClick }) {
             className="relative group py-2 hover:text-purple-400 transition-all duration-200 select-none"
             draggable={false}
           >
-            Limit Orders
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 group-hover:w-full transition-all duration-200"></span>c
+              Limit Orders
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 group-hover:w-full transition-all duration-200"></span>
           </Link>
           <button 
             onClick={onHelpClick} 
