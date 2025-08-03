@@ -1,102 +1,93 @@
-# MeowSwap Backend
+# MeowSwap Backend 🚀
 
-This backend powers the MeowSwap cross-chain DeFi protocol, with a strong focus on the Tron blockchain. It includes smart contracts, order management scripts, and API services, all designed to facilitate secure, efficient, and scalable cross-chain swaps—especially for Tron users.
+Welcome to the **MeowSwap Backend** – the engine behind cross-chain DeFi swaps, Dutch auctions, and limit orders, with a special focus on the Tron blockchain. This backend combines smart contracts, order management scripts, and robust API services to deliver secure, efficient, and scalable cross-chain trading.
 
 ---
 
-## Tron-Centric Architecture
+## 🏗️ Tron-Centric Architecture
 
-MeowSwap is built to leverage the Tron blockchain for fast, low-fee transactions and robust smart contract execution. The backend integrates Tron-specific tooling, deployment scripts, and contract logic to ensure seamless operation on Tron.
+MeowSwap leverages the Tron blockchain for fast, low-fee transactions and reliable smart contract execution.
 
-### Key Tron Features
+### 🔑 Key Tron Features
 
-- **Tronbox Integration:**  
-  The backend uses [Tronbox](https://github.com/tronprotocol/tron-box) for compiling, testing, and deploying smart contracts to the Tron network.
+- **Tronbox Integration**
 
-  - `tronbox.js` configures network endpoints, private keys, and deployment parameters.
-  - Contracts in `resolver/cross-chain-resolver-example/contracts/` are Tron-compatible.
+  - Uses [Tronbox](https://github.com/tronprotocol/tron-box) for compiling, testing, and deploying smart contracts.
+  - `tronbox.js` configures endpoints, keys, and deployment parameters.
+  - Contracts in [`resolver/cross-chain-resolver-example/contracts/`](backend/resolver/cross-chain-resolver-example/contracts/) are Tron-compatible.
 
-- **Tron Smart Contracts:**
+- **Tron Smart Contracts**
 
   - Written in Solidity, optimized for Tron VM.
-  - Support cross-chain swaps, Dutch auctions, and order resolution.
-  - Can be deployed and interacted with using Tronbox CLI.
+  - Enable cross-chain swaps, Dutch auctions, and order resolution.
 
-- **Tron Order Management:**
+- **Order Management**
 
-  - Scripts in `maker/` and `resolver/` are designed to create, sign, and resolve orders that interact with Tron contracts.
-  - Orders can be signed using Tron private keys and broadcast to the Tron network.
+  - Scripts in [`maker/`](backend/maker/) and [`resolver/`](backend/resolver/) create, sign, and resolve orders for Tron contracts.
+  - Orders signed with Tron private keys and broadcast to the network.
 
-- **Tron Testing & Simulation:**
+- **Testing & Simulation**
   - Use Tronbox for local testing and simulation.
-  - Automated tests ensure contract reliability and security on Tron.
+  - Automated tests ensure reliability and security.
 
 ---
 
-## Folder Structure
+## 📁 Folder Structure
 
 ```
 backend/
-├── maker/                # Order creation and signing scripts (Tron compatible)
-├── resolver/             # Order resolution logic and smart contracts
+├── maker/                # Order creation & signing scripts (Tron compatible)
+├── resolver/             # Order resolution logic & smart contracts
 │   ├── cross-chain-resolver-example/
 │   │   ├── contracts/    # Solidity contracts for Tron
 │   │   ├── tronbox.js    # Tronbox deployment config
 │   │   ├── tests/        # Automated contract tests
-│   │   └── .env.example  # Example environment variables for Tron
+│   │   └── .env.example  # Example environment variables
 │   └── lib/forge-std/    # Foundry standard library (optional)
-├── index.js              # API server (Express, can interact with Tron contracts)
+├── index.js              # API server (Express, TronWeb integration)
 ├── models/order.js       # Mongoose schema for order storage
-├── .env                  # Secrets (Tron private keys, endpoints)
+├── .env                  # Secrets (Tron keys, endpoints)
 └── README.md
 ```
 
 ---
 
-## Components
+## ⚙️ Components
 
-### 1. **Order Maker (`maker/`)**
+### 1. **Order Maker [`maker/`](backend/maker/)**
 
-- **create_order.js**: Create new swap orders, formatted for Tron contracts.
-- **signer.js**: Sign orders using Tron private keys.
-- **getorder.js**: Retrieve orders, including those on Tron.
+- [`create_order.js`](backend/maker/create_order.js): Create new swap orders for Tron contracts.
+- [`signer.js`](backend/maker/signer.js): Sign orders using Tron private keys.
+- [`getorder.js`](backend/maker/getorder.js): Retrieve orders, including Tron orders.
 
-### 2. **Order Resolver (`resolver/`)**
+### 2. **Order Resolver [`resolver/`](backend/resolver/)**
 
-- **cross-chain-resolver-example/contracts/**:  
-  Solidity contracts for Tron, handling swaps and auctions.
-- **tronbox.js**:  
-  Configuration for deploying contracts to Tron mainnet or testnet.
-- **tests/**:  
-  Automated tests for Tron contracts.
+- [`cross-chain-resolver-example/contracts/`](backend/resolver/cross-chain-resolver-example/contracts/): Solidity contracts for Tron swaps and auctions.
+- [`tronbox.js`](backend/resolver/cross-chain-resolver-example/tronbox.js): Deployment config for Tron.
+- [`tests/`](backend/resolver/cross-chain-resolver-example/tests/): Automated contract tests.
 
 ### 3. **API Server**
 
-- **index.js**:  
-  Express server that can interact with Tron contracts via TronWeb or Tronbox.
-- **models/order.js**:  
-  MongoDB schema for storing Tron-centric orders.
+- [`index.js`](backend/index.js): Express server with TronWeb integration.
+- [`models/order.js`](backend/models/order.js): MongoDB schema for Tron-centric orders.
 
 ---
 
-## Getting Started (Tron Focus)
+## 🚀 Getting Started (Tron Focus)
 
 ### Prerequisites
 
-- **Node.js & npm**
-- **Tronbox**:  
-  Install globally with `npm install -g tronbox`
-- **TronWeb**:  
-  For interacting with Tron contracts in scripts.
-- **MongoDB**:  
-  For order storage.
+- Node.js & npm
+- Tronbox (`npm install -g tronbox`)
+- TronWeb
+- MongoDB
 
 ### Environment Setup
 
 1. Copy `.env.example` to `.env` and fill in:
 
    - Tron private keys
-   - Tron node endpoints (mainnet/testnet)
+   - Tron node endpoints
    - MongoDB URI
 
 2. Install dependencies:
@@ -132,47 +123,66 @@ node index.js
 
 ---
 
-## Smart Contract Development for Tron
+## 🛠️ Smart Contract Development for Tron
 
-- **Solidity contracts** are written for Tron VM compatibility.
-- **tronbox.js** manages deployment settings.
-- **TronWeb** can be used in scripts for contract interaction.
-- **Testing**: Use Tronbox CLI and local testnets for simulation.
-
----
-
-## Security
-
-- **Private keys** for Tron must be stored in `.env` and never committed.
-- **Order signing** uses Tron cryptography.
-- **Contracts** are tested for vulnerabilities using Tronbox and automated scripts.
+- Solidity contracts are Tron VM compatible.
+- [`tronbox.js`](backend/resolver/cross-chain-resolver-example/tronbox.js) manages deployment.
+- Use TronWeb in scripts for contract interaction.
+- Test with Tronbox CLI and local testnets.
 
 ---
 
-## Troubleshooting Tron Integration
+## 🔒 Security
 
-- **Deployment errors**: Check `tronbox.js` for correct network and private key.
-- **Contract interaction issues**: Ensure TronWeb is properly configured.
-- **Order signing problems**: Validate Tron private key format.
+- Store Tron private keys in `.env` (never commit).
+- Order signing uses Tron cryptography.
+- Contracts tested for vulnerabilities via Tronbox and scripts.
 
 ---
 
-## Contribution
+## 🧩 Troubleshooting Tron Integration
+
+- Deployment errors: Check `tronbox.js` for correct network/key.
+- Contract interaction: Ensure TronWeb is configured.
+- Order signing: Validate Tron private key format.
+
+---
+
+## 🌱 Future Goals
+
+- **Automated Order Matching** 🤖  
+  AI-driven matching for optimal liquidity (in progress).
+
+- **Advanced Analytics Dashboard** 📊  
+  Real-time stats, chain comparison, and fee insights.
+
+- **Mobile App Integration** 📱  
+  Seamless trading experience on mobile devices.
+
+- **Multi-Chain Expansion** 🌐  
+  Support for Solana, Polygon, and other blockchains.
+
+- **On-Chain Governance** 🗳️  
+  Decentralized protocol upgrades and voting.
+
+---
+
+## 🤝 Contribution
 
 1. Fork and clone the repo.
 2. Install dependencies.
 3. Use feature branches for changes.
-4. Test contracts and scripts on Tron testnet.
+4. Test contracts/scripts on Tron testnet.
 5. Submit a pull request.
 
 ---
 
-## License
+## 📄 License
 
 MIT License © MeowSwap Team
 
 ---
 
-## Contact
+## 💬 Contact
 
 For Tron-specific support, open an issue or contact the MeowSwap team.
