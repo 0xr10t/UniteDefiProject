@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useWallet } from "../context/WalletContext.jsx";
+import logo from "../assets/Logo.png";
 
 function Navbar({ onHelpClick }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -35,7 +36,10 @@ function Navbar({ onHelpClick }) {
     <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur border-b border-white/10 bg-black/20 text-white">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
-        <div className="text-xl font-bold">LOGO</div>
+        <div className="flex items-center space-x-2">
+          <img src={logo} alt="Logo" className="h-8 w-8 rounded-full" />
+          <span className="text-xl font-semibold text-white tracking-wide">SWAP</span>
+        </div>
 
         <div className="space-x-6 hidden md:flex items-center">
           <div className="relative" ref={dropdownRef}>
@@ -93,14 +97,13 @@ function Navbar({ onHelpClick }) {
           </button>
         </div>
 
-        <button 
+        <button
           onClick={handleWalletClick}
           disabled={isConnecting}
-          className={`px-4 py-2 rounded-full border backdrop-blur transition-all ${
-            isConnected 
-              ? 'bg-green-400/20 hover:bg-green-400/30 text-green-300 border-green-400' 
+          className={`px-4 py-2 rounded-full border backdrop-blur transition-all ${isConnected
+              ? 'bg-green-400/20 hover:bg-green-400/30 text-green-300 border-green-400'
               : 'bg-purple-400/20 hover:bg-purple-400/30 text-purple-300 border-purple-400'
-          } ${isConnecting ? 'opacity-50 cursor-not-allowed' : ''}`}
+            } ${isConnecting ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           {isConnecting ? 'Connecting...' : isConnected ? formatAddress(account) : 'Connect Wallet'}
         </button>
