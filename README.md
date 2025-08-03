@@ -1,6 +1,6 @@
 # MeowSwap Frontend
 
-This is the frontend for **MeowSwap**, a cross-chain DeFi protocol focused on Dutch auctions and seamless swaps, with special support for the Tron blockchain. The frontend is built with React, Vite, and Tailwind CSS, providing a fast, modern, and responsive user experience.
+This is the frontend for **MeowSwap**, a cross-chain DeFi protocol focused on Dutch auctions, limit orders, and seamless swaps, with special support for the Tron blockchain. The frontend is built with React, Vite, and Tailwind CSS, providing a fast, modern, and responsive user experience.
 
 ---
 
@@ -41,6 +41,7 @@ frontend/
 │           ├── FusionMaker.jsx
 │           ├── FusionResolver.jsx
 │           ├── HomePage.jsx
+│           ├── LimitOrders.jsx
 │           └── ...
 ```
 
@@ -52,11 +53,11 @@ frontend/
 - **Vite**: Fast development server and build tool.
 - **Tailwind CSS**: Utility-first CSS framework for rapid styling.
 - **React Router**: Routing between pages.
-- **Tron Integration**: UI and logic designed for Tron-centric swaps and auctions.
+- **Tron Integration**: UI and logic designed for Tron-centric swaps, auctions, and limit orders.
 
 ---
 
-## Main Components
+## Main Components & Pages
 
 ### 1. **Navbar**
 
@@ -88,7 +89,15 @@ frontend/
 
 - Interface for resolvers to fill orders and earn profit.
 
-### 7. **Help Overlay**
+### 7. **LimitOrders**
+
+- Dedicated page for creating and managing limit orders.
+- Users can specify price, amount, and expiration for their orders.
+- Displays active, filled, and cancelled limit orders.
+- Supports Tron assets and cross-chain tokens.
+- Integrates with backend for order matching and status updates.
+
+### 8. **Help Overlay**
 
 - Modal for user help and FAQs.
 
@@ -147,7 +156,7 @@ npm run preview
 
 ## Tron Support
 
-- The UI supports Tron chain IDs and addresses for cross-chain swaps.
+- The UI supports Tron chain IDs and addresses for cross-chain swaps and limit orders.
 - Forms and logic are designed to work with Tron-based smart contracts and assets.
 
 ---
