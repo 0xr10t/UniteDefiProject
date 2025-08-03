@@ -1,0 +1,27 @@
+{
+  "name": "simple-escrow",
+  "version": "1.0.0",
+  "description": "Simple escrow system for atomic swaps",
+  "main": "index.js",
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test",
+    "deploy": "forge script script/Deploy.s.sol",
+    "verify": "forge verify-contract"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0"
+  },
+  "devDependencies": {
+    "foundry": "^0.2.0"
+  },
+  "keywords": [
+    "escrow",
+    "atomic-swap",
+    "ethereum",
+    "solidity",
+    "foundry"
+  ],
+  "author": "",
+  "license": "MIT"
+} 
