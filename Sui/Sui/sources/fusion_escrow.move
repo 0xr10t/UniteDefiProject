@@ -22,7 +22,7 @@ module fusion_escrow::htlc {
     use sui::balance::{ Balance};
     use sui::coin::{Coin};
     use sui::clock::{Clock};
-    use sui::hash;
+    use std::hash;
     // use sui::transfer;
     // use sui::tx_context::{TxContext};
     // use sui::object::{Self, UID, ID};
@@ -129,7 +129,7 @@ module fusion_escrow::htlc {
         assert!(sender == htlc.taker, ENotTaker);
         assert!(clock.timestamp_ms() < htlc.timelock, ETimelockExpired);
 
-        let hashed_secret = hash::sha2_256(&secret); 
+        let hashed_secret = hash::sha2_256(secret); 
         assert!(hashed_secret == htlc.hashlock, EInvalidSecret);
 
         event::emit(HtlcWithdrawn {
